@@ -216,7 +216,7 @@ AWT_NS_WINDOW_IMPLEMENTATION
     if (IS(styleBits, UNIFIED))       type |= NSUnifiedTitleAndToolbarWindowMask;
     if (IS(styleBits, UTILITY))       type |= NSUtilityWindowMask;
     if (IS(styleBits, HUD))           type |= NSHUDWindowMask;
-    if (IS(styleBits, SHEET))         type |= NSWindowStyleMaskDocModalWindow;
+    if (IS(styleBits, SHEET))         type |= NSDocModalWindowMask;
     if (IS(styleBits, NONACTIVATING)) type |= NSNonactivatingPanelMask;
 
     return type;
@@ -281,7 +281,7 @@ AWT_ASSERT_APPKIT_THREAD;
 
     NSUInteger newBits = bits;
     if (IS(bits, SHEET) && owner == nil) {
-        newBits = bits & ~NSWindowStyleMaskDocModalWindow;
+        newBits = bits & ~NSDocModalWindowMask;
     }
     NSUInteger styleMask = [AWTWindow styleMaskForStyleBits:newBits];
 
@@ -333,7 +333,7 @@ AWT_ASSERT_APPKIT_THREAD;
     }
 
     if (IS(bits, SHEET) && owner != nil) {
-        [self.nsWindow setStyleMask: NSWindowStyleMaskDocModalWindow];
+        [self.nsWindow setStyleMask: NSDocModalWindowMask];
     }
 
     return self;
